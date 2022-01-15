@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE3D75292792BCA1006A7AFD /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D75282792BCA1006A7AFD /* TextEditView.swift */; };
+		CE3D752B2792C2D4006A7AFD /* DayRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D752A2792C2D4006A7AFD /* DayRecorder.swift */; };
 		CEC37D8A2790F7F50039FD64 /* DayRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */; };
 		CEC37D8C2790F7F50039FD64 /* DayRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */; };
 		CEC37D8E2790F7F60039FD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC37D8D2790F7F60039FD64 /* Assets.xcassets */; };
-		CEC37D912790F7F60039FD64 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC37D902790F7F60039FD64 /* Preview Assets.xcassets */; };
 		CEC37D982790F9C10039FD64 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D972790F9C10039FD64 /* DayView.swift */; };
 		CEC37D9C2790F9E60039FD64 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D9B2790F9E60039FD64 /* EditView.swift */; };
 		CECADC00279257F5009460B7 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADBFF279257F5009460B7 /* PhotoView.swift */; };
@@ -18,11 +19,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE3D75282792BCA1006A7AFD /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
+		CE3D752A2792C2D4006A7AFD /* DayRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorder.swift; sourceTree = "<group>"; };
 		CEC37D862790F7F50039FD64 /* DayRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderApp.swift; sourceTree = "<group>"; };
 		CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderView.swift; sourceTree = "<group>"; };
 		CEC37D8D2790F7F60039FD64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CEC37D902790F7F60039FD64 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CEC37D972790F9C10039FD64 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		CEC37D9B2790F9E60039FD64 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		CECADBFF279257F5009460B7 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
@@ -40,6 +42,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE7AD46A2792A9B000666EE5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE3D752A2792C2D4006A7AFD /* DayRecorder.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CE7AD46B2792A9B400666EE5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */,
+				CEC37D9B2790F9E60039FD64 /* EditView.swift */,
+				CEC37D972790F9C10039FD64 /* DayView.swift */,
+				CECADBFF279257F5009460B7 /* PhotoView.swift */,
+				CECADC0127926099009460B7 /* PhotoEditView.swift */,
+				CE3D75282792BCA1006A7AFD /* TextEditView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE7AD46C2792A9D100666EE5 /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				CEC37D8D2790F7F60039FD64 /* Assets.xcassets */,
+			);
+			path = Asset;
+			sourceTree = "<group>";
+		};
 		CEC37D7D2790F7F50039FD64 = {
 			isa = PBXGroup;
 			children = (
@@ -59,24 +90,12 @@
 		CEC37D882790F7F50039FD64 /* DayRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				CE7AD46C2792A9D100666EE5 /* Asset */,
+				CE7AD46B2792A9B400666EE5 /* View */,
+				CE7AD46A2792A9B000666EE5 /* Model */,
 				CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */,
-				CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */,
-				CEC37D8D2790F7F60039FD64 /* Assets.xcassets */,
-				CEC37D8F2790F7F60039FD64 /* Preview Content */,
-				CEC37D9B2790F9E60039FD64 /* EditView.swift */,
-				CEC37D972790F9C10039FD64 /* DayView.swift */,
-				CECADBFF279257F5009460B7 /* PhotoView.swift */,
-				CECADC0127926099009460B7 /* PhotoEditView.swift */,
 			);
 			path = DayRecorder;
-			sourceTree = "<group>";
-		};
-		CEC37D8F2790F7F60039FD64 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				CEC37D902790F7F60039FD64 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +156,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEC37D912790F7F60039FD64 /* Preview Assets.xcassets in Resources */,
 				CEC37D8E2790F7F60039FD64 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +167,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3D752B2792C2D4006A7AFD /* DayRecorder.swift in Sources */,
 				CEC37D8C2790F7F50039FD64 /* DayRecorderView.swift in Sources */,
+				CE3D75292792BCA1006A7AFD /* TextEditView.swift in Sources */,
 				CEC37D982790F9C10039FD64 /* DayView.swift in Sources */,
 				CEC37D9C2790F9E60039FD64 /* EditView.swift in Sources */,
 				CECADC0227926099009460B7 /* PhotoEditView.swift in Sources */,
@@ -284,8 +304,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DayRecorder/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RGW3NX46P;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = W3X59LF8AU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -298,7 +318,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jung.jaecheol.DayRecorder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaecheol.DayRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -313,8 +333,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DayRecorder/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RGW3NX46P;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = W3X59LF8AU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -327,7 +347,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jung.jaecheol.DayRecorder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaecheol.DayRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
