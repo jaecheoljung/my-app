@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TextEditView: View {
     
-    @State var text: String = ""
+    @State var text: String
     
     var body: some View {
         VStack(alignment: .trailing) {
@@ -28,7 +28,7 @@ struct TextEditView: View {
 
 struct TextEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TextEditView()
+        TextEditView(text: "-")
             .frame(height: 500)
     }
 }

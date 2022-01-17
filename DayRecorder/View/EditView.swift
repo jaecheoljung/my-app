@@ -7,61 +7,47 @@
 
 import SwiftUI
 
-
-struct EditItem: Identifiable {
-    enum ItemType {
-        case media, string, button
-    }
-    let id = UUID()
-    let title: String
-    let type: ItemType
-}
-
 struct EditView: View {
     
-    @State var mode = EditMode.inactive
+    @EnvironmentObject var recorder: DayRecorder
     
-    @State var items: [EditItem] = [
-        EditItem(title: "What I thought today", type: .string),
-        EditItem(title: "What I ate today", type: .media),
-        EditItem(title: "What I saw today", type: .media),
-        EditItem(title: "What to do tomorrow", type: .string),
-        EditItem(title: "Edit", type: .button),
-        EditItem(title: "Save", type: .button),
-        EditItem(title: "Cancel", type: .button)
-    ]
+    var items: [DayItem] {
+        (recorder.editingRecord?.items?.array as? [DayItem]) ?? []
+    }
     
     var body: some View {
-        List {
-            ForEach(items) { item in
-                if item.type == .button {
-                    Button(item.title) {
-                        mode = .active
-                    }
-                } else {
-                    Section(item.title) {
-                        if item.type == .media {
-                            PhotoEditView()
+        ZStack(alignment: .topTrailing) {
+            List {
+                ForEach(items) { item in
+                    Section(item.title ?? "-") {
+                        if let images = item.content as? [UIImage] {
+                            PhotoEditView(images: images)
                                 .frame(height: 160)
                         }
-                        
-                        if item.type == .string {
-                            TextEditView()
+                        if let text = item.content as? String {
+                            TextEditView(text: text)
                                 .frame(height: 160)
                         }
                     }
                 }
-            }
-            .onDelete { offset in
-                items.remove(atOffsets: offset)
+                
+                Button("Save") {
+                    
+                }
+                
+                Button("Cancel") {
+                    
+                }
+                .foregroundColor(.red)
             }
         }
-        .environment(\.editMode, $mode)
     }
 }
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
         EditView()
+            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+            .environmentObject(DayRecorder())
     }
 }

@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		CE3D75292792BCA1006A7AFD /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D75282792BCA1006A7AFD /* TextEditView.swift */; };
-		CE3D752B2792C2D4006A7AFD /* DayRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D752A2792C2D4006A7AFD /* DayRecorder.swift */; };
+		CE75F8462793DBED00180C01 /* DayRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE75F8442793DBED00180C01 /* DayRecord.xcdatamodeld */; };
+		CE75F8482793DD7800180C01 /* PersistanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75F8472793DD7800180C01 /* PersistanceController.swift */; };
+		CE75F84A2793DDE900180C01 /* DayRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75F8492793DDE900180C01 /* DayRecorder.swift */; };
+		CE75F85027940B1400180C01 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75F84F27940B1400180C01 /* ImagePicker.swift */; };
 		CEC37D8A2790F7F50039FD64 /* DayRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */; };
 		CEC37D8C2790F7F50039FD64 /* DayRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */; };
 		CEC37D8E2790F7F60039FD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC37D8D2790F7F60039FD64 /* Assets.xcassets */; };
@@ -16,11 +19,15 @@
 		CEC37D9C2790F9E60039FD64 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D9B2790F9E60039FD64 /* EditView.swift */; };
 		CECADC00279257F5009460B7 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADBFF279257F5009460B7 /* PhotoView.swift */; };
 		CECADC0227926099009460B7 /* PhotoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADC0127926099009460B7 /* PhotoEditView.swift */; };
+		CEE549E3279412F90023DE93 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE549E2279412F90023DE93 /* ImageViewer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE3D75282792BCA1006A7AFD /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
-		CE3D752A2792C2D4006A7AFD /* DayRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorder.swift; sourceTree = "<group>"; };
+		CE75F8452793DBED00180C01 /* DayRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DayRecord.xcdatamodel; sourceTree = "<group>"; };
+		CE75F8472793DD7800180C01 /* PersistanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceController.swift; sourceTree = "<group>"; };
+		CE75F8492793DDE900180C01 /* DayRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorder.swift; sourceTree = "<group>"; };
+		CE75F84F27940B1400180C01 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CEC37D862790F7F50039FD64 /* DayRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderApp.swift; sourceTree = "<group>"; };
 		CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderView.swift; sourceTree = "<group>"; };
@@ -29,6 +36,7 @@
 		CEC37D9B2790F9E60039FD64 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		CECADBFF279257F5009460B7 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		CECADC0127926099009460B7 /* PhotoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditView.swift; sourceTree = "<group>"; };
+		CEE549E2279412F90023DE93 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,10 +50,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE75F8432793DBD600180C01 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				CE75F8442793DBED00180C01 /* DayRecord.xcdatamodeld */,
+				CE75F8472793DD7800180C01 /* PersistanceController.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		CE7AD46A2792A9B000666EE5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE3D752A2792C2D4006A7AFD /* DayRecorder.swift */,
+				CE75F8492793DDE900180C01 /* DayRecorder.swift */,
+				CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -59,6 +77,8 @@
 				CECADBFF279257F5009460B7 /* PhotoView.swift */,
 				CECADC0127926099009460B7 /* PhotoEditView.swift */,
 				CE3D75282792BCA1006A7AFD /* TextEditView.swift */,
+				CE75F84F27940B1400180C01 /* ImagePicker.swift */,
+				CEE549E2279412F90023DE93 /* ImageViewer.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -90,10 +110,10 @@
 		CEC37D882790F7F50039FD64 /* DayRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				CE75F8432793DBD600180C01 /* Database */,
 				CE7AD46C2792A9D100666EE5 /* Asset */,
 				CE7AD46B2792A9B400666EE5 /* View */,
 				CE7AD46A2792A9B000666EE5 /* Model */,
-				CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */,
 			);
 			path = DayRecorder;
 			sourceTree = "<group>";
@@ -167,13 +187,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3D752B2792C2D4006A7AFD /* DayRecorder.swift in Sources */,
+				CE75F84A2793DDE900180C01 /* DayRecorder.swift in Sources */,
 				CEC37D8C2790F7F50039FD64 /* DayRecorderView.swift in Sources */,
 				CE3D75292792BCA1006A7AFD /* TextEditView.swift in Sources */,
 				CEC37D982790F9C10039FD64 /* DayView.swift in Sources */,
+				CE75F8462793DBED00180C01 /* DayRecord.xcdatamodeld in Sources */,
+				CE75F8482793DD7800180C01 /* PersistanceController.swift in Sources */,
 				CEC37D9C2790F9E60039FD64 /* EditView.swift in Sources */,
 				CECADC0227926099009460B7 /* PhotoEditView.swift in Sources */,
 				CECADC00279257F5009460B7 /* PhotoView.swift in Sources */,
+				CEE549E3279412F90023DE93 /* ImageViewer.swift in Sources */,
+				CE75F85027940B1400180C01 /* ImagePicker.swift in Sources */,
 				CEC37D8A2790F7F50039FD64 /* DayRecorderApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +332,7 @@
 				DEVELOPMENT_TEAM = W3X59LF8AU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Usage Description";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,6 +362,7 @@
 				DEVELOPMENT_TEAM = W3X59LF8AU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Usage Description";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -377,6 +403,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CE75F8442793DBED00180C01 /* DayRecord.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE75F8452793DBED00180C01 /* DayRecord.xcdatamodel */,
+			);
+			currentVersion = CE75F8452793DBED00180C01 /* DayRecord.xcdatamodel */;
+			path = DayRecord.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CEC37D7E2790F7F50039FD64 /* Project object */;
 }

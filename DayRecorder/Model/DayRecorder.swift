@@ -2,21 +2,29 @@
 //  DayRecorder.swift
 //  DayRecorder
 //
-//  Created by USER on 2022/01/15.
+//  Created by USER on 2022/01/16.
 //
 
 import Foundation
+import SwiftUI
 
-struct DayItem {
+class DayRecorder: ObservableObject {
     
-}
-
-
-
-struct DayRecord {
-    let title: String
-}
-
-class DayRecorder {
+    @Published var editingRecord: DayRecord?
     
+    init() {
+        setEditingRecord()
+    }
+    
+    func setEditingRecord() {
+        let controller = PersistanceController.shared
+        let records = (try? controller.fetchEditingRecord()) ?? []
+        
+        if records.count != 1 {
+            try? controller.resetEditingRecord()
+            editingRecord = controller.insertDefaultEditingRecord()
+        } else {
+            editingRecord = records.first
+        }
+    }
 }

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct PhotoView: View {
     
-    var images: [String]
+    var images: [UIImage]
     
     var body: some View {
         GeometryReader { proxy in
             TabView {
                 ForEach(0..<images.count) { idx in
-                    Image(images[idx])
+                    Image(uiImage: images[idx])
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: proxy.size.width, height: proxy.size.height)
@@ -29,7 +29,7 @@ struct PhotoView: View {
 
 struct PhotoView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoView(images: Array(repeating: "iu", count: 2))
+        PhotoView(images: Array(repeating: UIImage(named: "iu")!, count: 2))
             .frame(width: 250, height: 100, alignment: .center)
     }
 }

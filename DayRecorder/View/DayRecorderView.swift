@@ -9,33 +9,32 @@ import SwiftUI
 
 struct DayRecorderView: View {
     
-    struct Day: Identifiable {
-        let id = UUID()
-        let title: String
-        let semititle: String
-    }
-    
-    private let mockDays = [
-        Day(title: "First day", semititle: "First day semititle"),
-        Day(title: "Second day", semititle: "Second day semititle"),
-        Day(title: "Third day", semititle: "Third day semititle"),
-    ]
+    @Environment(\.managedObjectContext) var managadObjectContext
+    @FetchRequest(
+        entity: DayRecord.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \DayRecord.date, ascending: false)
+        ],
+        predicate: NSPredicate(format: "isEditing != TRUE")
+    ) var records: FetchedResults<DayRecord>
     
     @State var isPresent = false
     
     var body: some View {
         NavigationView {
-            List(mockDays) { day in
-                Section(header: Text("2020-08-15")) {
+            List(records) { record in
+                Section(header: Text(record.dateString)) {
                     VStack(spacing: 20) {
                         NavigationLink(destination: {
                             DayView()
                         }) {
-                            Text(day.title)
+                            Text(record.title ?? "-")
                         }
                         
-                        PhotoView(images: ["iu", "iu"])
-                            .frame(height: 125)
+                        if record.images.count > 0 {
+                            PhotoView(images: record.images)
+                                .frame(height: 125)
+                        }
                     }
                 }
             }
@@ -55,5 +54,28 @@ struct DayRecorderView: View {
 struct DayRecorderView_Previews: PreviewProvider {
     static var previews: some View {
         DayRecorderView()
+            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+    }
+}
+
+
+extension DayItem {
+    var photos: [UIImage] {
+        content as? [UIImage] ?? []
+    }
+}
+
+extension DayRecord {
+    var images: [UIImage] {
+        guard let items = items?.array as? [DayItem] else {
+            return []
+        }
+        return items.flatMap(\.photos)
+    }
+    
+    var dateString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date!)
     }
 }
