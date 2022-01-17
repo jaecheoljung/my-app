@@ -12,19 +12,30 @@ class DayRecorder: ObservableObject {
     
     @Published var editingRecord: DayRecord?
     
+    var controller: PersistanceController { PersistanceController.shared }
+    
     init() {
-        setEditingRecord()
+        try? setEditingRecord()
     }
     
-    func setEditingRecord() {
-        let controller = PersistanceController.shared
-        let records = (try? controller.fetchEditingRecord()) ?? []
+    func setEditingRecord() throws {
+        let records = try controller.fetch(isEditing: true)
         
-        if records.count != 1 {
-            try? controller.resetEditingRecord()
-            editingRecord = controller.insertDefaultEditingRecord()
-        } else {
+        if records.count == 1 {
             editingRecord = records.first
+        } else if records.count > 1 {
+            records.forEach { controller.delete($0) }
+        } else {
+            makeEditingRecord()
         }
+    }
+    
+    func makeEditingRecord() {
+        let items = [
+            controller.makeItem(title: "My Sample Item 1", content: "My Sample Item 1"),
+            controller.makeItem(title: "My Sample Item 2", content: [UIImage]())
+        ]
+        
+        editingRecord = controller.makeRecord(title: "My Sample Record", date: Date(), items: items, isEditing: true)
     }
 }

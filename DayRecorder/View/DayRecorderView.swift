@@ -10,15 +10,9 @@ import SwiftUI
 struct DayRecorderView: View {
     
     @Environment(\.managedObjectContext) var managadObjectContext
-    @FetchRequest(
-        entity: DayRecord.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \DayRecord.date, ascending: false)
-        ],
-        predicate: NSPredicate(format: "isEditing != TRUE")
-    ) var records: FetchedResults<DayRecord>
-    
-    @State var isPresent = false
+    @EnvironmentObject var model: DayRecorder
+    @State var records: [DayRecord]
+    @State var isPresented = false
     
     var body: some View {
         NavigationView {
@@ -40,12 +34,12 @@ struct DayRecorderView: View {
             }
             .navigationTitle("DayRecorder")
             .toolbar(content: { Button("Create", action: {
-                isPresent.toggle()
+                isPresented.toggle()
             }) })
-            .sheet(isPresented: $isPresent) {
+            .sheet(isPresented: $isPresented) {
                 
             } content: {
-                EditView()
+                EditView(items: model.editingRecord!.editItemArray, isPresented: $isPresented)
             }
         }
     }
@@ -53,29 +47,47 @@ struct DayRecorderView: View {
 
 struct DayRecorderView_Previews: PreviewProvider {
     static var previews: some View {
-        DayRecorderView()
-            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+        DayRecorderView(records: [])
     }
 }
 
 
 extension DayItem {
     var photos: [UIImage] {
-        content as? [UIImage] ?? []
+        get { content as? [UIImage] ?? [] }
+        set { content = newValue as NSObject }
+    }
+    
+    var text: String {
+        get { content as? String ?? "-" }
+        set { content = newValue as NSObject }
     }
 }
 
 extension DayRecord {
     var images: [UIImage] {
-        guard let items = items?.array as? [DayItem] else {
-            return []
-        }
-        return items.flatMap(\.photos)
+        itemArray.flatMap(\.photos)
     }
     
     var dateString: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date!)
+    }
+    
+    var itemArray: [DayItem] {
+        items?.array as? [DayItem] ?? []
+    }
+    
+    var editItemArray: [EditItem] {
+        itemArray.compactMap {
+            if $0.content is String {
+                return EditItem(title: $0.title!, photos: [], text: $0.content as! String, type: .text)
+            }
+            if $0.content is [UIImage] {
+                return EditItem(title: $0.title!, photos: $0.content as! [UIImage], text: "-", type: .photo)
+            }
+            return nil
+        }
     }
 }

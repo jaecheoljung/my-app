@@ -20,11 +20,13 @@ struct ImageViewer: View {
             Image(uiImage: image)
         }
         .edgesIgnoringSafeArea(.all)
-        .overlay(
-            Button("Close") {
-                isPresented.toggle()
-            },
-            alignment: .top
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    if value.translation.height > 150 {
+                        isPresented.toggle()
+                    }
+                }
         )
     }
 }

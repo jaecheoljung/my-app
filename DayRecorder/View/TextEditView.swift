@@ -9,12 +9,12 @@ import SwiftUI
 
 struct TextEditView: View {
     
-    @State var text: String
+    @Binding var text: String
     
     var body: some View {
         VStack(alignment: .trailing) {
-                TextEditor(text: $text)
-                    .opacity(0.85)
+            TextEditor(text: $text)
+                .opacity(0.85)
             
             Text("\(text.count) / 150")
                 .opacity(0.6)
@@ -28,7 +28,7 @@ struct TextEditView: View {
 
 struct TextEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TextEditView(text: "-")
+        TextEditView(text: .constant("-"))
             .frame(height: 500)
     }
 }

@@ -15,6 +15,9 @@ class PersistanceController {
     
     let container: NSPersistentContainer
     
+    var context: NSManagedObjectContext { container.viewContext }
+    var coordinator: NSPersistentStoreCoordinator { container.persistentStoreCoordinator }
+    
     static var preview: PersistanceController = {
         let controller = PersistanceController(inMemory: true)
         
@@ -50,8 +53,6 @@ class PersistanceController {
     }
     
     func save() {
-        let context = container.viewContext
-        
         if context.hasChanges {
             do {
                 try context.save()
@@ -61,40 +62,31 @@ class PersistanceController {
         }
     }
     
-    func fetchEditingRecord() throws -> [DayRecord] {
-        let context = container.viewContext
-        
+    func fetch(isEditing: Bool) throws -> [DayRecord] {
         let request: NSFetchRequest<DayRecord> = DayRecord.fetchRequest()
-        request.predicate = NSPredicate(format: "isEditing == TRUE")
+        request.predicate = NSPredicate(format: "isEditing == %@", NSNumber(value: isEditing))
         
         return try context.fetch(request)
     }
     
-    func resetEditingRecord() throws {
-        let context = container.viewContext
-        let coordinator = container.persistentStoreCoordinator
-        
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = DayRecord.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isEditing == TRUE")
-        
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        try coordinator.execute(deleteRequest, with: context)
+    func delete(_ record: DayRecord) {
+        context.delete(record)
     }
     
-    func insertDefaultEditingRecord() -> DayRecord {
-        let context = container.viewContext
-        let record = DayRecord(context: context)
-        let item1 = DayItem(context: context)
-        let item2 = DayItem(context: context)
-        item1.title = "How was today?"
-        item1.content =  "IT WAS GOOD." as NSObject
-        item2.title = "What did you eat today?"
-        item2.content = Array(repeating: UIImage(named: "iu"), count: 2) as NSObject
+    func makeItem(title: String, content: Any) -> DayItem {
+        let item = DayItem(context: context)
+        item.title = title
+        item.content = content as? NSObject
         
-        record.title = "Day..."
-        record.items = NSOrderedSet(array: [item1, item2])
-        record.isEditing = true
+        return item
+    }
+    
+    func makeRecord(title: String, date: Date, items: [DayItem], isEditing: Bool) -> DayRecord {
+        let record = DayRecord(context: context)
+        record.title = title
+        record.date = date
+        record.items = NSOrderedSet(array: items)
+        record.isEditing = isEditing
         
         return record
     }

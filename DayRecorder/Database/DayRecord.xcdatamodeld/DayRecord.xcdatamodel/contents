@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="DayItem" representedClassName="DayItem" syncable="YES" codeGenerationType="class">
-        <attribute name="content" attributeType="Transformable"/>
+        <attribute name="content" optional="YES" attributeType="Transformable" valueTransformerName=""/>
         <attribute name="title" attributeType="String"/>
     </entity>
     <entity name="DayRecord" representedClassName="DayRecord" syncable="YES" codeGenerationType="class">
@@ -11,7 +11,7 @@
         <relationship name="items" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayItem"/>
     </entity>
     <elements>
-        <element name="DayRecord" positionX="180.99609375" positionY="-90.26171875" width="128" height="103"/>
         <element name="DayItem" positionX="-54" positionY="0" width="128" height="73"/>
+        <element name="DayRecord" positionX="180.99609375" positionY="-90.26171875" width="128" height="103"/>
     </elements>
 </model>

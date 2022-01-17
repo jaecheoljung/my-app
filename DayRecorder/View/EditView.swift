@@ -7,25 +7,35 @@
 
 import SwiftUI
 
+enum EditItemType {
+    case photo, text
+}
+
+struct EditItem {
+    var title: String
+    var photos: [UIImage]
+    var text: String
+    var type: EditItemType
+}
+
+
 struct EditView: View {
     
-    @EnvironmentObject var recorder: DayRecorder
-    
-    var items: [DayItem] {
-        (recorder.editingRecord?.items?.array as? [DayItem]) ?? []
-    }
+    @EnvironmentObject var model: DayRecorder
+    @State var items: [EditItem]
+    @Binding var isPresented: Bool
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             List {
-                ForEach(items) { item in
-                    Section(item.title ?? "-") {
-                        if let images = item.content as? [UIImage] {
-                            PhotoEditView(images: images)
+                ForEach(items.indices) { idx in
+                    Section(items[idx].title) {
+                        if items[idx].type == .photo {
+                            PhotoEditView(images: $items[idx].photos)
                                 .frame(height: 160)
                         }
-                        if let text = item.content as? String {
-                            TextEditView(text: text)
+                        if items[idx].type == .text {
+                            TextEditView(text: $items[idx].text)
                                 .frame(height: 160)
                         }
                     }
@@ -33,21 +43,23 @@ struct EditView: View {
                 
                 Button("Save") {
                     
+                    
+                    isPresented.toggle()
                 }
                 
                 Button("Cancel") {
-                    
+                    zip(model.editingRecord!.itemArray, items).forEach {
+                        if $1.type == .text {
+                            $0.content = $1.text as NSObject
+                        }
+                        if $1.type == .photo {
+                            $0.content = $1.photos as NSObject
+                        }
+                    }
+                    isPresented.toggle()
                 }
                 .foregroundColor(.red)
             }
         }
-    }
-}
-
-struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditView()
-            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
-            .environmentObject(DayRecorder())
     }
 }
