@@ -8,13 +8,40 @@
 import SwiftUI
 
 struct DayView: View {
+    @State var isPresented = false
+    @ObservedObject var record: DayRecord
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(record._items) { item in
+                Section(item.title ?? "-") {
+                    if !item.photos.isEmpty {
+                        PhotoView(images: item.photos)
+                            .frame(height: 160)
+                    }
+                    if !item.text.isEmpty {
+                        Text(item.text)
+                            .frame(height: 160)
+                    }
+                }
+            }
+        }
+        .navigationBarTitle(record.title ?? "-")
+        .toolbar {
+            Button("Update") {
+                isPresented.toggle()
+            }
+        }
+        .sheet(isPresented: $isPresented) {
+            PersistanceController.shared.rollback()
+        } content: {
+            EditView(record: record, isPresented: $isPresented)
+        }
     }
 }
 
-struct DayView_Previews: PreviewProvider {
-    static var previews: some View {
-        DayView()
+extension DayRecord {
+    var _items: [DayRecordItem] {
+        items?.array as? [DayRecordItem] ?? []
     }
 }

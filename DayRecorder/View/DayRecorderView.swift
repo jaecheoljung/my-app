@@ -8,86 +8,87 @@
 import SwiftUI
 
 struct DayRecorderView: View {
-    
-    @Environment(\.managedObjectContext) var managadObjectContext
-    @EnvironmentObject var model: DayRecorder
-    @State var records: [DayRecord]
+    @FetchRequest(
+        entity: DayRecord.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \DayRecord.date, ascending: false)],
+        predicate: NSPredicate(format: "isEditing == %@", NSNumber(value: false)),
+        animation: nil
+    ) var records: FetchedResults<DayRecord>
     @State var isPresented = false
+    @State var selectedRecord: DayRecord!
+    @State var isDisplayingDialog = false
+    @State var isEditing = false
     
     var body: some View {
         NavigationView {
-            List(records) { record in
-                Section(header: Text(record.dateString)) {
-                    VStack(spacing: 20) {
-                        NavigationLink(destination: {
-                            DayView()
-                        }) {
-                            Text(record.title ?? "-")
+            List {
+                ForEach(records) { record in
+                    Section(header: Text(record.dateString ?? "-")) {
+                        VStack(spacing: 20) {
+                            NavigationLink(destination: {
+                                DayView(record: record)
+                            }) {
+                                Text(record.title ?? "-")
+                            }
+                            
+                            if !record.images.isEmpty {
+                                PhotoView(images: record.images)
+                                    .frame(height: 125)
+                            }
                         }
-                        
-                        if record.images.count > 0 {
-                            PhotoView(images: record.images)
-                                .frame(height: 125)
+                    }
+                    .swipeActions(allowsFullSwipe: false) {
+                        Button(role: .destructive) {
+                            PersistanceController.shared.delete(record)
+                            PersistanceController.shared.save()
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
                         }
                     }
                 }
             }
             .navigationTitle("DayRecorder")
-            .toolbar(content: { Button("Create", action: {
-                isPresented.toggle()
-            }) })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Create") {
+                        isPresented.toggle()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    
+                }
+            }
             .sheet(isPresented: $isPresented) {
                 
             } content: {
-                EditView(items: model.editingRecord!.editItemArray, isPresented: $isPresented)
+                EditView(record: PersistanceController.shared.fetchEditingRecord(), isPresented: $isPresented)
+            }
+            .confirmationDialog("삭제하시겠습니까?", isPresented: $isDisplayingDialog, titleVisibility: .visible) {
+                Button("Yes", role: .destructive) {
+                    PersistanceController.shared.delete(selectedRecord)
+                    PersistanceController.shared.save()
+                }
             }
         }
     }
 }
 
-struct DayRecorderView_Previews: PreviewProvider {
-    static var previews: some View {
-        DayRecorderView(records: [])
-    }
-}
-
-
-extension DayItem {
-    var photos: [UIImage] {
-        get { content as? [UIImage] ?? [] }
-        set { content = newValue as NSObject }
-    }
-    
-    var text: String {
-        get { content as? String ?? "-" }
-        set { content = newValue as NSObject }
-    }
-}
 
 extension DayRecord {
-    var images: [UIImage] {
-        itemArray.flatMap(\.photos)
-    }
-    
-    var dateString: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date!)
-    }
-    
-    var itemArray: [DayItem] {
-        items?.array as? [DayItem] ?? []
-    }
-    
-    var editItemArray: [EditItem] {
-        itemArray.compactMap {
-            if $0.content is String {
-                return EditItem(title: $0.title!, photos: [], text: $0.content as! String, type: .text)
-            }
-            if $0.content is [UIImage] {
-                return EditItem(title: $0.title!, photos: $0.content as! [UIImage], text: "-", type: .photo)
-            }
+    var dateString: String? {
+        guard let date = date else {
             return nil
         }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
+    var images: [UIImage] {
+        guard let items = items?.array as? [DayRecordItem] else {
+            return []
+        }
+        return items.compactMap { $0.content as? [UIImage] }.reduce(into: []) { $0 += $1 }
+        
     }
 }

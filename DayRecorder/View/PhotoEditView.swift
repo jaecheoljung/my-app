@@ -7,43 +7,36 @@
 
 import SwiftUI
 
-class PhotoEditViewModel: ObservableObject {
-    var sourceType: UIImagePickerController.SourceType = .camera
-    var pickerImage: UIImage?
-    var viewerImage: UIImage?
-}
-
 struct PhotoEditView: View {
     
+    @ObservedObject var item: DayRecordItem
     @State var isPresented = false
-    @ObservedObject var model = PhotoEditViewModel()
-    @Binding var images: [UIImage]
+    @State var cameraPhoto: UIImage?
+    @State var albumPhoto: UIImage?
+    @State var viewerPhoto: UIImage?
+    @State var isDisplayingDialog = false
+    @State var selectedIndex: Int!
+    var photos: [UIImage] { item.photos }
     
     var body: some View {
         GeometryReader { geometryProxy in
             ScrollViewReader { scrollProxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
-                        ForEach(images.indices, id: \.self) { idx in
-                            Image(uiImage: images[idx])
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
+                        ForEach(photos.indices, id: \.self) { idx in
+                            ImageView(image: photos[idx])
                                 .frame(width: geometryProxy.size.height, height: geometryProxy.size.height)
                                 .cornerRadius(4)
-                                .onTapGesture {
-                                    model.viewerImage = images[idx]
-                                    isPresented.toggle()
+                                .onLongPressGesture {
+                                    selectedIndex = idx
+                                    isDisplayingDialog.toggle()
                                 }
                         }
-                        
                         Menu(content: {
                             Button("Camera") {
-                                model.sourceType = .camera
-                                isPresented.toggle()
+                                
                             }
-                        
                             Button("Album") {
-                                model.sourceType = .photoLibrary
                                 isPresented.toggle()
                             }
                         }) {
@@ -64,33 +57,22 @@ struct PhotoEditView: View {
                     scrollProxy.scrollTo("photo-edit-button", anchor: .trailing)
                 }
                 .fullScreenCover(isPresented: $isPresented) {
-                    if let image = model.pickerImage {
-                        images.append(image)
+                    if let image = albumPhoto {
+                        item.photos.append(image)
                     }
-                    model.pickerImage = nil
-                    model.viewerImage = nil
+                    albumPhoto = nil
                 } content: {
-                    if let image = model.viewerImage {
-                        ImageViewer(
-                            isPresented: $isPresented,
-                            image: image
-                        )
-                    } else {
-                        ImagePicker(
-                            isPresented: $isPresented,
-                            image: $model.pickerImage,
-                            sourceType: model.sourceType
-                        )
+                    ImagePicker(
+                        isPresented: $isPresented,
+                        image: $albumPhoto
+                    )
+                }
+                .confirmationDialog("삭제하시겠습니까?", isPresented: $isDisplayingDialog, titleVisibility: .visible) {
+                    Button("Yes", role: .destructive) {
+                        item.photos.remove(at: selectedIndex)
                     }
                 }
             }
         }
-    }
-}
-
-struct PhotoEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoEditView(images: .constant([UIImage(named: "iu")!]))
-            .frame(height: 300)
     }
 }

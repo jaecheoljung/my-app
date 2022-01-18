@@ -5,61 +5,53 @@
 //  Created by JAECHEOL JUNG on 2022/01/14.
 //
 
+import CoreData
 import SwiftUI
 
-enum EditItemType {
-    case photo, text
-}
-
-struct EditItem {
-    var title: String
-    var photos: [UIImage]
-    var text: String
-    var type: EditItemType
-}
-
-
 struct EditView: View {
-    
-    @EnvironmentObject var model: DayRecorder
-    @State var items: [EditItem]
+    @ObservedObject var record: DayRecord
     @Binding var isPresented: Bool
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             List {
-                ForEach(items.indices) { idx in
-                    Section(items[idx].title) {
-                        if items[idx].type == .photo {
-                            PhotoEditView(images: $items[idx].photos)
+                ForEach(record._items) { item in
+                    Section(item.title ?? "-") {
+                        if item.content is [UIImage] {
+                            PhotoEditView(item: item)
                                 .frame(height: 160)
                         }
-                        if items[idx].type == .text {
-                            TextEditView(text: $items[idx].text)
+                        if item.content is String {
+                            TextEditView(item: item)
                                 .frame(height: 160)
                         }
                     }
                 }
                 
                 Button("Save") {
-                    
-                    
+                    record.isEditing = false
+                    PersistanceController.shared.save()
                     isPresented.toggle()
                 }
                 
                 Button("Cancel") {
-                    zip(model.editingRecord!.itemArray, items).forEach {
-                        if $1.type == .text {
-                            $0.content = $1.text as NSObject
-                        }
-                        if $1.type == .photo {
-                            $0.content = $1.photos as NSObject
-                        }
-                    }
                     isPresented.toggle()
                 }
                 .foregroundColor(.red)
             }
         }
+    }
+}
+
+
+extension DayRecordItem {
+    var text: String {
+        get { content as? String ?? "" }
+        set { content = newValue as NSObject }
+    }
+    
+    var photos: [UIImage] {
+        get { content as? [UIImage] ?? [] }
+        set { content = newValue as NSObject }
     }
 }

@@ -18,33 +18,9 @@ class PersistanceController {
     var context: NSManagedObjectContext { container.viewContext }
     var coordinator: NSPersistentStoreCoordinator { container.persistentStoreCoordinator }
     
-    static var preview: PersistanceController = {
-        let controller = PersistanceController(inMemory: true)
-        
-        for idx in 1..<11 {
-            let record = DayRecord(context: controller.container.viewContext)
-            let item1 = DayItem(context: controller.container.viewContext)
-            let item2 = DayItem(context: controller.container.viewContext)
-            item1.title = "How was today?"
-            item1.content =  "IT WAS GOOD." as NSObject
-            item2.title = "What did you eat today?"
-            item2.content = Array(repeating: UIImage(named: "iu"), count: 2) as NSObject
-            
-            record.title = "Day \(idx)..."
-            record.date = Calendar.current.date(byAdding: .day, value: idx, to: Date())
-            record.items = NSOrderedSet(array: [item1, item2])
-        }
-        
-        return controller
-    }()
-    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "DayRecord")
-        
-        if inMemory {
-            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
-        }
-        
+
         container.loadPersistentStores { description, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -65,7 +41,6 @@ class PersistanceController {
     func fetch(isEditing: Bool) throws -> [DayRecord] {
         let request: NSFetchRequest<DayRecord> = DayRecord.fetchRequest()
         request.predicate = NSPredicate(format: "isEditing == %@", NSNumber(value: isEditing))
-        
         return try context.fetch(request)
     }
     
@@ -73,15 +48,15 @@ class PersistanceController {
         context.delete(record)
     }
     
-    func makeItem(title: String, content: Any) -> DayItem {
-        let item = DayItem(context: context)
+    func makeItem(title: String, content: Any) -> DayRecordItem {
+        let item = DayRecordItem(context: context)
         item.title = title
         item.content = content as? NSObject
         
         return item
     }
     
-    func makeRecord(title: String, date: Date, items: [DayItem], isEditing: Bool) -> DayRecord {
+    func makeRecord(title: String, date: Date, items: [DayRecordItem], isEditing: Bool) -> DayRecord {
         let record = DayRecord(context: context)
         record.title = title
         record.date = date
@@ -89,5 +64,22 @@ class PersistanceController {
         record.isEditing = isEditing
         
         return record
+    }
+    
+    func fetchEditingRecord() -> DayRecord {
+        if let records = try? fetch(isEditing: true), records.count == 1 {
+            return records[0]
+        }
+        
+        (try? fetch(isEditing: true))?.forEach(delete)
+        
+        return makeRecord(title: "-", date: Date(), items: [
+            makeItem(title: "메모 남기기", content: ""),
+            makeItem(title: "오늘 먹은 것", content: [UIImage]())
+        ], isEditing: true)
+    }
+    
+    func rollback() {
+        context.rollback()
     }
 }

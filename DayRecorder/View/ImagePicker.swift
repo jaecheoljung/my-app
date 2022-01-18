@@ -12,7 +12,6 @@ import SwiftUI
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
     @Binding var image: UIImage?
-    var sourceType: UIImagePickerController.SourceType
     
     func makeCoordinator() -> ImagePickerCoordinator {
         ImagePickerCoordinator(isPresented: _isPresented, image: _image)
@@ -24,10 +23,6 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            imagePicker.sourceType = sourceType
-            imagePicker.cameraCaptureMode = .photo
-        }
         imagePicker.delegate = context.coordinator
         return imagePicker
     }

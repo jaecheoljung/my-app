@@ -11,14 +11,12 @@ import SwiftUI
 struct DayRecorderApp: App {
     
     @Environment(\.scenePhase) var scenePhase
-    @StateObject var model = DayRecorder()
     let controller = PersistanceController.shared
     
     var body: some Scene {
         WindowGroup {
-            DayRecorderView(records: (try? controller.fetch(isEditing: false)) ?? [])
+            DayRecorderView()
                 .environment(\.managedObjectContext, controller.context)
-                .environmentObject(model)
         }
         .onChange(of: scenePhase) { newValue in
             controller.save()

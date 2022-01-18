@@ -9,26 +9,19 @@ import SwiftUI
 
 struct TextEditView: View {
     
-    @Binding var text: String
+    @ObservedObject var item: DayRecordItem
     
     var body: some View {
         VStack(alignment: .trailing) {
-            TextEditor(text: $text)
+            TextEditor(text: $item.text)
                 .opacity(0.85)
             
-            Text("\(text.count) / 150")
+            Text("\(item.text.count) / 150")
                 .opacity(0.6)
                 .font(.footnote)
         }
-        .onChange(of: text) { _ in
-            text = String(text.prefix(150))
+        .onChange(of: item.text) { _ in
+            item.text = String(item.text.prefix(150))
         }
-    }
-}
-
-struct TextEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        TextEditView(text: .constant("-"))
-            .frame(height: 500)
     }
 }
