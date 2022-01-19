@@ -14,21 +14,26 @@ struct DayView: View {
     var body: some View {
         List {
             ForEach(record._items) { item in
-                Section(item.title ?? "-") {
-                    if !item.photos.isEmpty {
+                if !item.photos.isEmpty {
+                    Section(item.title ?? "") {
                         PhotoView(images: item.photos)
                             .frame(height: 160)
                     }
-                    if !item.text.isEmpty {
+                }
+                
+                if !item.text.isEmpty {
+                    Section(item.title ?? "") {
                         Text(item.text)
-                            .frame(height: 160)
                     }
                 }
             }
+            
+            Text(record.dateStringLong)
+                .font(.footnote)
         }
         .navigationBarTitle(record.title ?? "-")
         .toolbar {
-            Button("Update") {
+            Button("수정하기") {
                 isPresented.toggle()
             }
         }
@@ -42,6 +47,15 @@ struct DayView: View {
 
 extension DayRecord {
     var _items: [DayRecordItem] {
-        items?.array as? [DayRecordItem] ?? []
+        get { items?.array as? [DayRecordItem] ?? [] }
+        set { items = NSOrderedSet(array: newValue) }
+    }
+}
+
+extension DayRecord {
+    var dateStringLong: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일 HH시 mm분 작성한 글입니다."
+        return formatter.string(from: _date)
     }
 }

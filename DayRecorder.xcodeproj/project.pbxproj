@@ -11,6 +11,7 @@
 		CE75F8462793DBED00180C01 /* DayRecord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE75F8442793DBED00180C01 /* DayRecord.xcdatamodeld */; };
 		CE75F8482793DD7800180C01 /* PersistanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75F8472793DD7800180C01 /* PersistanceController.swift */; };
 		CE75F85027940B1400180C01 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE75F84F27940B1400180C01 /* ImagePicker.swift */; };
+		CE7EB3FB27984FED00C7A606 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EB3FA27984FED00C7A606 /* OrderView.swift */; };
 		CEC132502796F58B00DC8BC7 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1324F2796F58B00DC8BC7 /* ImageView.swift */; };
 		CEC37D8A2790F7F50039FD64 /* DayRecorderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */; };
 		CEC37D8C2790F7F50039FD64 /* DayRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */; };
@@ -27,6 +28,7 @@
 		CE75F8452793DBED00180C01 /* DayRecord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DayRecord.xcdatamodel; sourceTree = "<group>"; };
 		CE75F8472793DD7800180C01 /* PersistanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceController.swift; sourceTree = "<group>"; };
 		CE75F84F27940B1400180C01 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CE7EB3FA27984FED00C7A606 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		CEC1324F2796F58B00DC8BC7 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		CEC37D862790F7F50039FD64 /* DayRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderApp.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				CE75F84F27940B1400180C01 /* ImagePicker.swift */,
 				CEE549E2279412F90023DE93 /* ImageViewer.swift */,
 				CEC1324F2796F58B00DC8BC7 /* ImageView.swift */,
+				CE7EB3FA27984FED00C7A606 /* OrderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC132502796F58B00DC8BC7 /* ImageView.swift in Sources */,
+				CE7EB3FB27984FED00C7A606 /* OrderView.swift in Sources */,
 				CEC37D8C2790F7F50039FD64 /* DayRecorderView.swift in Sources */,
 				CE3D75292792BCA1006A7AFD /* TextEditView.swift in Sources */,
 				CEC37D982790F9C10039FD64 /* DayView.swift in Sources */,

@@ -73,9 +73,9 @@ class PersistanceController {
         
         (try? fetch(isEditing: true))?.forEach(delete)
         
-        return makeRecord(title: "-", date: Date(), items: [
-            makeItem(title: "메모 남기기", content: ""),
-            makeItem(title: "오늘 먹은 것", content: [UIImage]())
+        return makeRecord(title: "", date: Date(), items: [
+            makeItem(title: "새 텍스트 아이템", content: ""),
+            makeItem(title: "새 사진 아이템", content: [UIImage]())
         ], isEditing: true)
     }
     

@@ -14,6 +14,7 @@ struct DayRecorderView: View {
         predicate: NSPredicate(format: "isEditing == %@", NSNumber(value: false)),
         animation: nil
     ) var records: FetchedResults<DayRecord>
+    
     @State var isPresented = false
     @State var selectedRecord: DayRecord!
     @State var isDisplayingDialog = false
@@ -42,7 +43,7 @@ struct DayRecorderView: View {
                             PersistanceController.shared.delete(record)
                             PersistanceController.shared.save()
                         } label: {
-                            Label("Delete", systemImage: "trash.fill")
+                            Image(systemName: "trash.fill")
                         }
                     }
                 }
@@ -50,8 +51,10 @@ struct DayRecorderView: View {
             .navigationTitle("DayRecorder")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Create") {
+                    Button {
                         isPresented.toggle()
+                    } label: {
+                        Image(systemName: "highlighter")
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -59,15 +62,9 @@ struct DayRecorderView: View {
                 }
             }
             .sheet(isPresented: $isPresented) {
-                
+                PersistanceController.shared.rollback()
             } content: {
                 EditView(record: PersistanceController.shared.fetchEditingRecord(), isPresented: $isPresented)
-            }
-            .confirmationDialog("삭제하시겠습니까?", isPresented: $isDisplayingDialog, titleVisibility: .visible) {
-                Button("Yes", role: .destructive) {
-                    PersistanceController.shared.delete(selectedRecord)
-                    PersistanceController.shared.save()
-                }
             }
         }
     }
@@ -89,6 +86,5 @@ extension DayRecord {
             return []
         }
         return items.compactMap { $0.content as? [UIImage] }.reduce(into: []) { $0 += $1 }
-        
     }
 }

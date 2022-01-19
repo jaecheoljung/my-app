@@ -11,10 +11,16 @@ import SwiftUI
 struct EditView: View {
     @ObservedObject var record: DayRecord
     @Binding var isPresented: Bool
+    var isDisabled: Bool { record._title.count < 3 || record._items.isEmpty }
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
+        NavigationView {
             List {
+                Section {
+                    TextField("제목을 입력하세요.", text: $record._title)
+                    DatePicker("작성 날짜", selection: $record._date)
+                }
+                
                 ForEach(record._items) { item in
                     Section(item.title ?? "-") {
                         if item.content is [UIImage] {
@@ -27,18 +33,34 @@ struct EditView: View {
                         }
                     }
                 }
-                
-                Button("Save") {
-                    record.isEditing = false
-                    PersistanceController.shared.save()
-                    isPresented.toggle()
-                }
-                
-                Button("Cancel") {
-                    isPresented.toggle()
-                }
-                .foregroundColor(.red)
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("저장") {
+                        record.isEditing = false
+                        PersistanceController.shared.save()
+                        isPresented.toggle()
+                    }
+                    .disabled(isDisabled)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("나가기") {
+                        isPresented.toggle()
+                    }
+                    .foregroundColor(.red)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        OrderView(record: record)
+                    } label: {
+                        Text("순서 편집")
+                    }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            record.date = Date()
         }
     }
 }
@@ -53,5 +75,22 @@ extension DayRecordItem {
     var photos: [UIImage] {
         get { content as? [UIImage] ?? [] }
         set { content = newValue as NSObject }
+    }
+    
+    var _title: String {
+        get { title ?? "" }
+        set { title = newValue }
+    }
+}
+
+extension DayRecord {
+    var _title: String {
+        get { title ?? "" }
+        set { title = newValue }
+    }
+    
+    var _date: Date {
+        get { date ?? Date() }
+        set { date = newValue }
     }
 }

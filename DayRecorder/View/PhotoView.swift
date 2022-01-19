@@ -15,9 +15,7 @@ struct PhotoView: View {
         GeometryReader { proxy in
             TabView {
                 ForEach(images.indices, id: \.self) { idx in
-                    Image(uiImage: images[idx])
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                    ImageView(image: images[idx])
                         .frame(width: proxy.size.width, height: proxy.size.height)
                 }
             }
