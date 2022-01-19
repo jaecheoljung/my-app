@@ -23,8 +23,22 @@ struct DayRecorderView: View {
     var body: some View {
         NavigationView {
             List {
+                if records.isEmpty {
+                    Section(Date().description) {
+                        VStack(spacing: 20) {
+                            Text("새로운 기록을 시작해 보세요.")
+                            
+                            PhotoView(images: (1...3).map { UIImage(named: "ex-\($0)")! })
+                                .frame(height: 125)
+                        }
+                    }
+                    .onTapGesture {
+                        isPresented.toggle()
+                    }
+                }
+                
                 ForEach(records) { record in
-                    Section(header: Text(record.dateString ?? "-")) {
+                    Section(record.dateString ?? "-") {
                         VStack(spacing: 20) {
                             NavigationLink(destination: {
                                 DayView(record: record)

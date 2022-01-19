@@ -16,6 +16,7 @@ struct PhotoEditView: View {
     @State var viewerPhoto: UIImage?
     @State var isDisplayingDialog = false
     @State var selectedIndex: Int!
+    @State var sourceType: UIImagePickerController.SourceType = .camera
     var photos: [UIImage] { item.photos }
     
     var body: some View {
@@ -33,17 +34,24 @@ struct PhotoEditView: View {
                                 }
                         }
                         Menu(content: {
-                            Button("Camera") {
-                                
-                            }
-                            Button("Album") {
+                            Button {
+                                sourceType = .camera
                                 isPresented.toggle()
+                            } label: {
+                                Label("촬영하기", systemImage: "camera")
+                            }
+                            
+                            Button {
+                                sourceType = .photoLibrary
+                                isPresented.toggle()
+                            } label: {
+                                Label("앨범에서 가져오기", systemImage: "photo.on.rectangle.angled")
                             }
                         }) {
                             ZStack {
                                 Color.black.opacity(0.05)
                                 
-                                Text("Add New Photo")
+                                Label("사진 추가하기", systemImage: "photo")
                                     .opacity(0.7)
                                     .padding(20)
                             }
@@ -64,7 +72,8 @@ struct PhotoEditView: View {
                 } content: {
                     ImagePicker(
                         isPresented: $isPresented,
-                        image: $albumPhoto
+                        image: $albumPhoto,
+                        sourceType: sourceType
                     )
                 }
                 .confirmationDialog("삭제하시겠습니까?", isPresented: $isDisplayingDialog, titleVisibility: .visible) {

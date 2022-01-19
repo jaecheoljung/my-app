@@ -53,7 +53,7 @@ struct EditView: View {
                     NavigationLink {
                         OrderView(record: record)
                     } label: {
-                        Text("순서 편집")
+                        Text("편집")
                     }
                 }
             }
