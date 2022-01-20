@@ -18,6 +18,7 @@ struct DayRecorderApp: App {
             DayRecorderView()
                 .environment(\.managedObjectContext, controller.context)
         }
+        
         .onChange(of: scenePhase) { newValue in
             controller.save()
         }

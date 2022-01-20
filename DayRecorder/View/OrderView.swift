@@ -22,7 +22,7 @@ struct OrderView: View {
                     }
                     .swipeActions(allowsFullSwipe: false) {
                         Button(role: .destructive) {
-                            PersistanceController.shared.delete(record)
+                            record._items.remove(at: idx)
                             PersistanceController.shared.save()
                         } label: {
                             Image(systemName: "trash.fill")
