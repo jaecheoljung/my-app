@@ -79,6 +79,23 @@ class PersistanceController {
         ], isEditing: true)
     }
     
+    func copyRecord(from record: DayRecord) {
+        let items: [DayRecordItem] = record._items.compactMap { item in
+            guard let title = item.title else {
+                return nil
+            }
+            if item.content is String {
+                return makeItem(title: title, content: "")
+            }
+            if item.content is [UIImage] {
+                return makeItem(title: title, content: [UIImage]())
+            }
+            return nil
+        }
+        
+        _ = makeRecord(title: "", date: Date(), items: items, isEditing: true)
+    }
+    
     func rollback() {
         context.rollback()
     }

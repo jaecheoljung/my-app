@@ -37,6 +37,7 @@ struct EditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("저장") {
+                        PersistanceController.shared.copyRecord(from: record)
                         record.isEditing = false
                         PersistanceController.shared.save()
                         isPresented.toggle()
@@ -60,7 +61,9 @@ struct EditView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
-            record.date = Date()
+            if record.isEditing {
+                record.date = Date()
+            }
         }
     }
 }

@@ -260,7 +260,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -315,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -338,8 +338,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayRecorder/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 첨부를 위한 앨범 사용 권한을 요청합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "일기 작성에 사용될 사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "일기 작성에 사용될 사진을 첨부하기 위한 앨범 사용 권한을 요청합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -372,8 +372,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayRecorder/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 첨부를 위한 앨범 사용 권한을 요청합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "일기 작성에 사용될 사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "일기 작성에 사용될 사진을 첨부하기 위한 앨범 사용 권한을 요청합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
