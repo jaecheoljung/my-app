@@ -17,7 +17,9 @@ struct EditView: View {
         NavigationView {
             List {
                 Section {
-                    TextField("제목을 입력하세요.", text: $record._title)
+                    TextField("제목을 입력하세요.", text: $record._title) {
+                        keyboardDismiss()
+                    }
                     DatePicker("작성 날짜", selection: $record._date)
                 }
                 
@@ -33,6 +35,9 @@ struct EditView: View {
                         }
                     }
                 }
+            }
+            .onTapGesture {
+                keyboardDismiss()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -65,6 +70,10 @@ struct EditView: View {
                 record.date = Date()
             }
         }
+    }
+    
+    func keyboardDismiss() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

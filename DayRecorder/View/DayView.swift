@@ -10,6 +10,7 @@ import SwiftUI
 struct DayView: View {
     @State var isPresented = false
     @ObservedObject var record: DayRecord
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         List {
@@ -17,7 +18,7 @@ struct DayView: View {
                 if !item.photos.isEmpty {
                     Section(item.title ?? "") {
                         PhotoView(images: item.photos)
-                            .frame(height: 160)
+                            .frame(height: 200)
                     }
                 }
                 
@@ -33,8 +34,19 @@ struct DayView: View {
         }
         .navigationBarTitle(record.title ?? "-")
         .toolbar {
-            Button("수정하기") {
-                isPresented.toggle()
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("수정") {
+                    isPresented.toggle()
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("삭제") {
+                    presentationMode.wrappedValue.dismiss()
+                    PersistanceController.shared.delete(record)
+                    PersistanceController.shared.save()
+                }
+                .foregroundColor(.red)
             }
         }
         .sheet(isPresented: $isPresented) {

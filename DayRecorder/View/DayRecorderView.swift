@@ -19,17 +19,26 @@ struct DayRecorderView: View {
     @State var selectedRecord: DayRecord!
     @State var isDisplayingDialog = false
     @State var isEditing = false
+    @State var searchText = ""
+    
+    var searchedRecords: [DayRecord] {
+        records.filter { record in
+            searchText.isEmpty ||
+            record.title?.contains(searchText) == true ||
+            record._items.compactMap { $0.content as? String }.contains(where: { $0.contains(searchText) })
+        }
+    }
     
     var body: some View {
         NavigationView {
             List {
-                if records.isEmpty {
+                if searchText.isEmpty, records.isEmpty {
                     Section(Date().description) {
                         VStack(spacing: 20) {
                             Text("새로운 기록을 시작해 보세요.")
                             
                             PhotoView(images: (1...3).map { UIImage(named: "ex-\($0)")! })
-                                .frame(height: 125)
+                                .frame(height: 150)
                         }
                     }
                     .onTapGesture {
@@ -37,7 +46,7 @@ struct DayRecorderView: View {
                     }
                 }
                 
-                ForEach(records) { record in
+                ForEach(searchedRecords) { record in
                     Section(record.dateString ?? "-") {
                         VStack(spacing: 20) {
                             NavigationLink(destination: {
@@ -48,7 +57,7 @@ struct DayRecorderView: View {
                             
                             if !record.images.isEmpty {
                                 PhotoView(images: record.images)
-                                    .frame(height: 125)
+                                    .frame(height: 150)
                             }
                         }
                     }
@@ -62,7 +71,6 @@ struct DayRecorderView: View {
                     }
                 }
             }
-            .navigationTitle("DayRecorder")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -80,6 +88,9 @@ struct DayRecorderView: View {
             } content: {
                 EditView(record: PersistanceController.shared.fetchEditingRecord(), isPresented: $isPresented)
             }
+            .navigationTitle("DayRecorder")
+            .searchable(text: $searchText)
+            .listStyle(InsetGroupedListStyle())
         }
     }
 }
