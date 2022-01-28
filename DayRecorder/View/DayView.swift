@@ -35,13 +35,13 @@ struct DayView: View {
         .navigationBarTitle(record.title ?? "-")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("수정") {
+                Button("edit.button".localized) {
                     isPresented.toggle()
                 }
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("삭제") {
+                Button("delete.button".localized) {
                     presentationMode.wrappedValue.dismiss()
                     PersistanceController.shared.delete(record)
                     PersistanceController.shared.save()
@@ -67,7 +67,8 @@ extension DayRecord {
 extension DayRecord {
     var dateStringLong: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일 HH시 mm분 작성한 글입니다."
+        formatter.dateFormat = "date.long.string".localized("yyyy", "MM", "dd", "HH", "mm")
+        
         return formatter.string(from: _date)
     }
 }

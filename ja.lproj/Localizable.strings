@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  DayRecorder
+
+  Created by USER on 2022/01/28.
+  
+*/
+
+"new.record" = "새로운 기록을 시작해 보세요";
+"edit.title" = "제목을 입력하세요";
+"edit.text" = "내용을 입력하세요";
+"edit.date" = "작성날짜";
+"save.button" = "저장";
+"exit.button" = "나가기";
+"edit.button" = "편집";
+"delete.button" = "삭제";
+"date.long.string" = "%1$@년 %2$@월 %3$@일 %4$@시 %5$@분 작성한 글입니다.";
+"take.photo" = "촬영하기";
+"retrieve.from.album" = "앨범에서 가져오기";
+"add.new.photo" = "사진 추가하기";
+"alert.delete.photo" = "사진을 삭제하시겠습니까?";
+"new.photo.item" = "새 사진 아이템";
+"new.text.item" = "새 텍스트 아이템";
+"add.new.item" = "새 아이템 추가하기";

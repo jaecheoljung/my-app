@@ -16,7 +16,7 @@ struct OrderView: View {
             List {
                 ForEach(record._items.indices, id: \.self) { idx in
                     HStack {
-                        TextField("제목을 입력하세요.", text: $record._items[idx]._title)
+                        TextField("edit.title".localized, text: $record._items[idx]._title)
                         Spacer()
                         Image(systemName: record._items[idx].content is [UIImage] ? "photo" : "text.alignleft")
                     }
@@ -38,18 +38,18 @@ struct OrderView: View {
                 
                 Menu {
                     Button {
-                        record._items.append(PersistanceController.shared.makeItem(title: "새 사진 아이템", content: [UIImage]()))
+                        record._items.append(PersistanceController.shared.makeItem(title: "new.photo.item".localized, content: [UIImage]()))
                     } label: {
-                        Label("사진 아이템", systemImage: "photo")
+                        Label("new.photo.item", systemImage: "photo")
                     }
                     
                     Button {
-                        record._items.append(PersistanceController.shared.makeItem(title: "새 글 아이템", content: ""))
+                        record._items.append(PersistanceController.shared.makeItem(title: "new.text.item".localized, content: ""))
                     } label: {
-                        Label("글 아이템", systemImage: "text.alignleft")
+                        Label("new.text.item".localized, systemImage: "text.alignleft")
                     }
                 } label: {
-                    Text("새로운 아이템 추가하기")
+                    Text("add.new.item".localized)
                         .disabled(record._items.count > 10)
                 }
             }
@@ -59,7 +59,6 @@ struct OrderView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("")
         }
         .onDisappear {
             isDisabled ? PersistanceController.shared.rollback() : PersistanceController.shared.save()

@@ -14,7 +14,7 @@ struct TextEditView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             if item.text.isEmpty {
-                Text("내용을 입력하세요")
+                Text("edit.text".localized)
                     .opacity(0.3)
                     .padding(.top, 7)
                     .padding(.leading, 4)

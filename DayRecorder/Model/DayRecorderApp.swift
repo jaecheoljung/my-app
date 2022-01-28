@@ -24,3 +24,14 @@ struct DayRecorderApp: App {
         }
     }
 }
+
+
+extension String {
+    var localized: Self {
+        NSLocalizedString(self, comment: "")
+    }
+    
+    func localized(_ args: CVarArg...) -> Self {
+        String(format: localized, arguments: args)
+    }
+}

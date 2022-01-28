@@ -24,10 +24,3 @@ struct PhotoView: View {
         .cornerRadius(4)
     }
 }
-
-struct PhotoView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotoView(images: Array(repeating: UIImage(named: "iu")!, count: 2))
-            .frame(width: 250, height: 100, alignment: .center)
-    }
-}

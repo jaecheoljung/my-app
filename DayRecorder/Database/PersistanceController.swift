@@ -74,8 +74,8 @@ class PersistanceController {
         (try? fetch(isEditing: true))?.forEach(delete)
         
         return makeRecord(title: "", date: Date(), items: [
-            makeItem(title: "새 텍스트 아이템", content: ""),
-            makeItem(title: "새 사진 아이템", content: [UIImage]())
+            makeItem(title: "new.text.item".localized, content: ""),
+            makeItem(title: "new.photo.item".localized, content: [UIImage]())
         ], isEditing: true)
     }
     

@@ -20,6 +20,7 @@
 		CEC37D9C2790F9E60039FD64 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC37D9B2790F9E60039FD64 /* EditView.swift */; };
 		CECADC00279257F5009460B7 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADBFF279257F5009460B7 /* PhotoView.swift */; };
 		CECADC0227926099009460B7 /* PhotoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADC0127926099009460B7 /* PhotoEditView.swift */; };
+		CED7852A27A3B93300623DB7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CED7852C27A3B93300623DB7 /* Localizable.strings */; };
 		CEE549E3279412F90023DE93 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE549E2279412F90023DE93 /* ImageViewer.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,8 @@
 		CEC37D9B2790F9E60039FD64 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		CECADBFF279257F5009460B7 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		CECADC0127926099009460B7 /* PhotoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditView.swift; sourceTree = "<group>"; };
+		CED7852D27A3B97500623DB7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CED7852E27A3B97D00623DB7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CEE549E2279412F90023DE93 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +100,7 @@
 		CEC37D7D2790F7F50039FD64 = {
 			isa = PBXGroup;
 			children = (
+				CED7852C27A3B93300623DB7 /* Localizable.strings */,
 				CEC37D882790F7F50039FD64 /* DayRecorder */,
 				CEC37D872790F7F50039FD64 /* Products */,
 			);
@@ -163,6 +167,8 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
+				ko,
 			);
 			mainGroup = CEC37D7D2790F7F50039FD64;
 			productRefGroup = CEC37D872790F7F50039FD64 /* Products */;
@@ -180,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC37D8E2790F7F60039FD64 /* Assets.xcassets in Resources */,
+				CED7852A27A3B93300623DB7 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,11 +215,24 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		CED7852C27A3B93300623DB7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CED7852D27A3B97500623DB7 /* ja */,
+				CED7852E27A3B97D00623DB7 /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		CEC37D922790F7F60039FD64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -274,6 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -350,7 +371,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaecheol.DayRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -384,7 +405,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaecheol.DayRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

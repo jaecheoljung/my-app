@@ -17,10 +17,10 @@ struct EditView: View {
         NavigationView {
             List {
                 Section {
-                    TextField("제목을 입력하세요.", text: $record._title) {
+                    TextField("edit.title".localized, text: $record._title) {
                         keyboardDismiss()
                     }
-                    DatePicker("작성 날짜", selection: $record._date)
+                    DatePicker("edit.date".localized, selection: $record._date)
                 }
                 
                 ForEach(record._items) { item in
@@ -41,7 +41,7 @@ struct EditView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("저장") {
+                    Button("save.button".localized) {
                         PersistanceController.shared.copyRecord(from: record)
                         record.isEditing = false
                         PersistanceController.shared.save()
@@ -50,7 +50,7 @@ struct EditView: View {
                     .disabled(isDisabled)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("나가기") {
+                    Button("exit.button".localized) {
                         isPresented.toggle()
                     }
                     .foregroundColor(.red)
@@ -59,7 +59,7 @@ struct EditView: View {
                     NavigationLink {
                         OrderView(record: record)
                     } label: {
-                        Text("편집")
+                        Text("edit.button".localized)
                     }
                 }
             }

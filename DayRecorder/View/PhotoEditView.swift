@@ -38,20 +38,20 @@ struct PhotoEditView: View {
                                 sourceType = .camera
                                 isPresented.toggle()
                             } label: {
-                                Label("촬영하기", systemImage: "camera")
+                                Label("take.photo".localized, systemImage: "camera")
                             }
                             
                             Button {
                                 sourceType = .photoLibrary
                                 isPresented.toggle()
                             } label: {
-                                Label("앨범에서 가져오기", systemImage: "photo.on.rectangle.angled")
+                                Label("retrieve.from.album".localized, systemImage: "photo.on.rectangle.angled")
                             }
                         }) {
                             ZStack {
                                 Color.black.opacity(0.05)
                                 
-                                Label("사진 추가하기", systemImage: "photo")
+                                Label("add.new.photo".localized, systemImage: "photo")
                                     .opacity(0.7)
                                     .padding(20)
                             }
@@ -76,8 +76,8 @@ struct PhotoEditView: View {
                         sourceType: sourceType
                     )
                 }
-                .confirmationDialog("삭제하시겠습니까?", isPresented: $isDisplayingDialog, titleVisibility: .visible) {
-                    Button("Yes", role: .destructive) {
+                .confirmationDialog("alert.delete.photo".localized, isPresented: $isDisplayingDialog, titleVisibility: .visible) {
+                    Button("delete.button".localized, role: .destructive) {
                         item.photos.remove(at: selectedIndex)
                     }
                 }
