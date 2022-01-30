@@ -7,32 +7,50 @@
 
 import Foundation
 import SwiftUI
-
+import PhotosUI
 
 struct ImagePicker: UIViewControllerRepresentable {
+    enum Source {
+        case camera
+        case photoLibrary
+    }
+    
     @Binding var isPresented: Bool
     @Binding var image: UIImage?
-    var sourceType: UIImagePickerController.SourceType
+    var sourceType: Source
     
     func makeCoordinator() -> ImagePickerCoordinator {
         ImagePickerCoordinator(isPresented: _isPresented, image: _image)
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+        
     }
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = context.coordinator
-        
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            imagePicker.sourceType = sourceType
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIViewController {
+        if sourceType == .camera {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = context.coordinator
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+            }
+            
+            return imagePicker
         }
-        return imagePicker
+        
+        if sourceType == .photoLibrary {
+            var configuration = PHPickerConfiguration()
+            configuration.filter = .images
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = context.coordinator
+            return picker
+        }
+        
+        return UIViewController()
     }
     
-    class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PHPickerViewControllerDelegate {
         @Binding var isPresented: Bool
         @Binding var image: UIImage?
         
@@ -41,8 +59,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             _image = image
         }
         
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            image = (info[.originalImage] as? UIImage)?.resize(width: UIScreen.width)
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            image = (info[.originalImage] as? UIImage)?.resize(width: UIScreen.width * 1.5)
             isPresented.toggle()
         }
 
@@ -50,6 +68,19 @@ struct ImagePicker: UIViewControllerRepresentable {
             isPresented.toggle()
         }
 
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            guard let provider = results.first?.itemProvider, provider.canLoadObject(ofClass: UIImage.self) else {
+                isPresented.toggle()
+                return
+            }
+            
+            provider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    self.image = image as? UIImage
+                    self.isPresented.toggle()
+                }
+            }
+        }
     }
 }
 

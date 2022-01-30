@@ -22,3 +22,6 @@
 "new.photo.item" = "새 사진 아이템";
 "new.text.item" = "새 텍스트 아이템";
 "add.new.item" = "새 아이템 추가하기";
+"common.title" = "안내";
+"camera.permission.alert" = "카메라 사용을 위해 권한을 허용해 주세요.";
+"common.confirm" = "확인";

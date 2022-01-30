@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  DayRecorder
+
+  Created by USER on 2022/01/30.
+  
+*/
+
+CFBundleDisplayName = "DayRecorder";
+NSCameraUsageDescription = "日記に写真を添付するために、アプリが端末機内のアルバムにアクセスする権限を許可する必要があります。";
+NSPhotoLibraryUsageDescription = "日記に写真を添付するために、カメラの使用権限を許可してください。";

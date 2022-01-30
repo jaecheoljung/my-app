@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  DayRecorder
+
+  Created by USER on 2022/01/30.
+  
+*/
+
+CFBundleDisplayName = "DayRecorder";
+NSCameraUsageDescription = "일기 작성에 사용될 사진을 첨부하기 위한 앨범 사용 권한을 요청합니다.";
+NSPhotoLibraryUsageDescription = "일기 작성에 사용될 사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
+

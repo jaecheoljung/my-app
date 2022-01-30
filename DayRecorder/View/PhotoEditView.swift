@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import Photos
+
+class PhotoEditViewModel: ObservableObject {
+    var pickerImage: UIImage?
+    var selectedIndex: Int?
+    var sourceType: ImagePicker.Source?
+}
 
 struct PhotoEditView: View {
-    
     @ObservedObject var item: DayRecordItem
-    @State var isPresented = false
-    @State var cameraPhoto: UIImage?
-    @State var albumPhoto: UIImage?
-    @State var viewerPhoto: UIImage?
     @State var isDisplayingDialog = false
-    @State var selectedIndex: Int!
-    @State var sourceType: UIImagePickerController.SourceType = .camera
+    @State var isPresented = false
+    @ObservedObject var model = PhotoEditViewModel()
+    
     var photos: [UIImage] { item.photos }
     
     var body: some View {
@@ -29,21 +32,21 @@ struct PhotoEditView: View {
                                 .frame(width: geometryProxy.size.height, height: geometryProxy.size.height)
                                 .cornerRadius(4)
                                 .onLongPressGesture {
-                                    selectedIndex = idx
+                                    model.selectedIndex = idx
                                     isDisplayingDialog.toggle()
                                 }
                         }
                         Menu(content: {
                             Button {
-                                sourceType = .camera
-                                isPresented.toggle()
+                                model.sourceType = .camera
+                                isPresented = true
                             } label: {
                                 Label("take.photo".localized, systemImage: "camera")
                             }
                             
                             Button {
-                                sourceType = .photoLibrary
-                                isPresented.toggle()
+                                model.sourceType = .photoLibrary
+                                isPresented = true
                             } label: {
                                 Label("retrieve.from.album".localized, systemImage: "photo.on.rectangle.angled")
                             }
@@ -56,29 +59,35 @@ struct PhotoEditView: View {
                                     .padding(20)
                             }
                         }
-                        .id("photo-edit-button")
+                        .id("add-button")
                         .frame(width: geometryProxy.size.height, height: geometryProxy.size.height)
                         .cornerRadius(4)
                     }
                 }
                 .onAppear {
-                    scrollProxy.scrollTo("photo-edit-button", anchor: .trailing)
+                    scrollProxy.scrollTo("add-button", anchor: .trailing)
                 }
                 .fullScreenCover(isPresented: $isPresented) {
-                    if let image = albumPhoto {
+                    if let image = model.pickerImage {
                         item.photos.append(image)
                     }
-                    albumPhoto = nil
+                    model.pickerImage = nil
                 } content: {
-                    ImagePicker(
-                        isPresented: $isPresented,
-                        image: $albumPhoto,
-                        sourceType: sourceType
-                    )
+                    if let type = model.sourceType {
+                        ImagePicker(
+                            isPresented: $isPresented,
+                            image: $model.pickerImage,
+                            sourceType: type
+                        )
+                            .edgesIgnoringSafeArea(.all)
+                    }
                 }
                 .confirmationDialog("alert.delete.photo".localized, isPresented: $isDisplayingDialog, titleVisibility: .visible) {
                     Button("delete.button".localized, role: .destructive) {
-                        item.photos.remove(at: selectedIndex)
+                        if let idx = model.selectedIndex {
+                            item.photos.remove(at: idx)
+                            model.selectedIndex = nil
+                        }
                     }
                 }
             }

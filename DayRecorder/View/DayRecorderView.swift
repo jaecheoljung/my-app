@@ -35,7 +35,7 @@ struct DayRecorderView: View {
                 if searchText.isEmpty, records.isEmpty {
                     Section(Date().description) {
                         VStack(spacing: 20) {
-                            Text("새로운 기록을 시작해 보세요.")
+                            Text("new.record".localized)
                             
                             PhotoView(images: (1...3).map { UIImage(named: "ex-\($0)")! })
                                 .frame(height: 150)

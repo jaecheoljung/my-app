@@ -21,6 +21,7 @@
 		CECADC00279257F5009460B7 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADBFF279257F5009460B7 /* PhotoView.swift */; };
 		CECADC0227926099009460B7 /* PhotoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECADC0127926099009460B7 /* PhotoEditView.swift */; };
 		CED7852A27A3B93300623DB7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CED7852C27A3B93300623DB7 /* Localizable.strings */; };
+		CEDB733227A61F5800497B80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEDB733427A61F5800497B80 /* InfoPlist.strings */; };
 		CEE549E3279412F90023DE93 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE549E2279412F90023DE93 /* ImageViewer.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +32,7 @@
 		CE75F84F27940B1400180C01 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CE7EB3FA27984FED00C7A606 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		CEC1324F2796F58B00DC8BC7 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		CEC37D862790F7F50039FD64 /* DayRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC37D862790F7F50039FD64 /* DayRecorder-local.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DayRecorder-local.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC37D892790F7F50039FD64 /* DayRecorderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderApp.swift; sourceTree = "<group>"; };
 		CEC37D8B2790F7F50039FD64 /* DayRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecorderView.swift; sourceTree = "<group>"; };
 		CEC37D8D2790F7F60039FD64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +42,8 @@
 		CECADC0127926099009460B7 /* PhotoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditView.swift; sourceTree = "<group>"; };
 		CED7852D27A3B97500623DB7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CED7852E27A3B97D00623DB7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEDB733327A61F5800497B80 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CEDB733527A61F5C00497B80 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CEE549E2279412F90023DE93 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +103,7 @@
 		CEC37D7D2790F7F50039FD64 = {
 			isa = PBXGroup;
 			children = (
+				CEDB733427A61F5800497B80 /* InfoPlist.strings */,
 				CED7852C27A3B93300623DB7 /* Localizable.strings */,
 				CEC37D882790F7F50039FD64 /* DayRecorder */,
 				CEC37D872790F7F50039FD64 /* Products */,
@@ -109,7 +113,7 @@
 		CEC37D872790F7F50039FD64 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEC37D862790F7F50039FD64 /* DayRecorder.app */,
+				CEC37D862790F7F50039FD64 /* DayRecorder-local.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,7 +146,7 @@
 			);
 			name = DayRecorder;
 			productName = DayRecorder;
-			productReference = CEC37D862790F7F50039FD64 /* DayRecorder.app */;
+			productReference = CEC37D862790F7F50039FD64 /* DayRecorder-local.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -186,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC37D8E2790F7F60039FD64 /* Assets.xcassets in Resources */,
+				CEDB733227A61F5800497B80 /* InfoPlist.strings in Resources */,
 				CED7852A27A3B93300623DB7 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +228,15 @@
 				CED7852E27A3B97D00623DB7 /* ko */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		CEDB733427A61F5800497B80 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEDB733327A61F5800497B80 /* ko */,
+				CEDB733527A61F5C00497B80 /* ja */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -358,9 +372,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayRecorder/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CFBundleDisplayName;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "일기 작성에 사용될 사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "일기 작성에 사용될 사진을 첨부하기 위한 앨범 사용 권한을 요청합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = NSPhotoLibraryUsageDescription;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -372,8 +387,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jaecheol.DayRecorder;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaecheol.DayRecorder.debug;
+				PRODUCT_NAME = "$(TARGET_NAME)-local";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -392,9 +407,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayRecorder/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CFBundleDisplayName;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "일기 작성에 사용될 사진 촬영을 위한 카메라 사용 권한을 요청합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "일기 작성에 사용될 사진을 첨부하기 위한 앨범 사용 권한을 요청합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = NSPhotoLibraryUsageDescription;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
